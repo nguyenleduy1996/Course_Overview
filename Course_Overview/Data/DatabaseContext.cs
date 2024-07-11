@@ -39,8 +39,7 @@ namespace Course_Overview.Data
 				.IsUnique();
 		}
 
-		public DbSet<Course> Courses { get; set; }                  // Bảng khóa học 
-		public DbSet<CourseDetail> CourseDetails { get; set; }      //Bảng cho tiết khóa học 
+		public DbSet<Course> CourseDetails { get; set; }      //Bảng cho tiết khóa học 
 		public DbSet<EntranceExam> EntranceExams { get; set; }      // Bảng kỳ thi tuyển sinh
 		public DbSet<ExamResult> ExamResults { get; set; }          //Bảng lưu kết quả thi, phân lớp của học viên 
 		public DbSet<FAQ> FAQs { get; set; }                        //Bảng câu hỏi thường gặp 

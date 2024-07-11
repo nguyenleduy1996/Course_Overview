@@ -18,7 +18,7 @@ namespace LModels
 		public string OptionD { get; set; }
 		public string CorrectAnswer { get; set; }
 
-		public CourseDetail? CourseDetail { get; set; }
+		public Course? CourseDetail { get; set; }
 		public EntranceExam? EntranceExam { get; set; }
 
 		public ICollection<StudentExam> StudentExam { get; set;}

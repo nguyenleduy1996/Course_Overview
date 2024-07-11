@@ -94,31 +94,11 @@ namespace Course_Overview.Migrations
 
             modelBuilder.Entity("LModels.Course", b =>
                 {
-                    b.Property<int>("CourseID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseID"));
-
-                    b.Property<string>("CourseName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CourseID");
-
-                    b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("LModels.CourseDetail", b =>
-                {
                     b.Property<int>("CourseDetailID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseDetailID"));
-
-                    b.Property<int>("CourseID")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -141,8 +121,6 @@ namespace Course_Overview.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CourseDetailID");
-
-                    b.HasIndex("CourseID");
 
                     b.ToTable("CourseDetails");
                 });
@@ -242,9 +220,6 @@ namespace Course_Overview.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SessionID"));
 
-                    b.Property<int?>("CourseDetailID")
-                        .HasColumnType("int");
-
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
@@ -265,7 +240,7 @@ namespace Course_Overview.Migrations
 
                     b.HasKey("SessionID");
 
-                    b.HasIndex("CourseDetailID");
+                    b.HasIndex("CourseID");
 
                     b.HasIndex("StudentID");
 
@@ -482,17 +457,6 @@ namespace Course_Overview.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("LModels.CourseDetail", b =>
-                {
-                    b.HasOne("LModels.Course", "Course")
-                        .WithMany("CourseDetails")
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-                });
-
             modelBuilder.Entity("LModels.ExamResult", b =>
                 {
                     b.HasOne("LModels.Class", "Class")
@@ -520,9 +484,11 @@ namespace Course_Overview.Migrations
 
             modelBuilder.Entity("LModels.LabSession", b =>
                 {
-                    b.HasOne("LModels.CourseDetail", "CourseDetail")
+                    b.HasOne("LModels.Course", "CourseDetail")
                         .WithMany("LabSessions")
-                        .HasForeignKey("CourseDetailID");
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LModels.Student", "Students")
                         .WithMany("LabSessions")
@@ -556,7 +522,7 @@ namespace Course_Overview.Migrations
 
             modelBuilder.Entity("LModels.Question", b =>
                 {
-                    b.HasOne("LModels.CourseDetail", "CourseDetail")
+                    b.HasOne("LModels.Course", "CourseDetail")
                         .WithMany("Questions")
                         .HasForeignKey("CourseDetailID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -602,11 +568,6 @@ namespace Course_Overview.Migrations
                 });
 
             modelBuilder.Entity("LModels.Course", b =>
-                {
-                    b.Navigation("CourseDetails");
-                });
-
-            modelBuilder.Entity("LModels.CourseDetail", b =>
                 {
                     b.Navigation("LabSessions");
 
