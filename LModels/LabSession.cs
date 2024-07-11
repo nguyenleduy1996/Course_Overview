@@ -17,6 +17,6 @@ namespace LModels
 
 		public Student? Students { get; set; }
 		public Teacher? Teacher { get; set; }
-		public Course? CourseDetail { get; set; }
+		public Course? Course { get; set; }
 	}
 }

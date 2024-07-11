@@ -1,3 +1,5 @@
+using Course_Overview.Areas.Admin.Repository;
+using Course_Overview.Areas.Admin.Service;
 using Course_Overview.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +12,8 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectDB"));
 });
+
+builder.Services.AddScoped<ICourserRepository, CourseService>();
 
 var app = builder.Build();
 

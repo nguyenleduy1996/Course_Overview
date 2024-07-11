@@ -7,7 +7,7 @@ namespace LModels
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int CourseDetailID { get; set; }
+		public int CourseID { get; set; }
 
 		[Required(ErrorMessage = "Title is required")]
 		public string Title { get; set; }

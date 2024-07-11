@@ -1,0 +1,45 @@
+﻿@using LModels
+@model IEnumerable<Course>
+
+<div class="card-body">
+    <h4 class="card-title">Course List</h4>
+   
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th> CourseID </th>
+                <th> Title </th>
+                <th> Fee </th>
+                <th> IsBasic </th>
+                <th> DurationMonths </th>
+                <th> Image </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td class="py-1">@item.CourseID</td>
+                    <td>@item.Title</td>
+                    <td>@item.Fee</td>
+                    <td>@item.IsBasic</td>
+                    <td>@item.DurationMonths</td>
+                    <td>
+                        <img src="" alt="" />
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" asp-route-id="@item.CourseID" asp-action="Edit">
+                            <i class="bi bi-pencil-fill"></i>
+                            Edit
+                        </a>
+                        <a class="btn btn-danger" asp-route-id="@item.CourseID" asp-action="Delete">
+                            <i class="bi bi-trash3"></i>
+                            Delete
+                        </a>
+                    </td>
+
+                </tr>
+            }           
+        </tbody>
+    </table>
+</div>
