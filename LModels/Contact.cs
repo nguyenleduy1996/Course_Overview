@@ -2,7 +2,7 @@
 
 namespace LModels
 {
-	public class ContactInfo
+	public class Contact
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]

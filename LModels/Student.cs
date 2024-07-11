@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.AspNetCore.Http;
+
 namespace LModels
 {
 	public class Student
@@ -22,6 +24,11 @@ namespace LModels
 
 		[Required(ErrorMessage = "Address is required")]
 		public string Address { get; set; }
+
+		public string? ImagePath { get; set; }
+
+		[NotMapped]
+		public IFormFile? ImageFile { get; set; }
 		public string IdentityCard { get; set; }
 
 		//Tạo Contructor để thưc hiện Generate IdentityCard 

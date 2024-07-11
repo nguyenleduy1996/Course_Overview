@@ -9,16 +9,20 @@ namespace LModels
 		public int ResultID { get; set; }
 		public int StudentID { get; set; }
 		public int ExamID { get; set; }
-		public int Marks { get; set; }
+		public int ClassID { get; set; }
 
 		[Required]
-		public string SegregatedClass { get; set; }  //Phân loai lớp
+		[Range(0, 10, ErrorMessage = "Mark must be between from 0 to 10")]
+		public double Marks { get; set; }               //Điểm số
+
+		public DateTime ExamDate { get; set; }       // Ngày thực hiện kỳ thi
 
 		[Required]
-		[Column(TypeName = "decimal(10,2)")]
-		public decimal Fee { get; set; }
+		[RegularExpression("^(Processed|No process|Processing)$", ErrorMessage = "Invalid Result Status")]
+		public string ResultStatus { get; set; }     // Trạng thái kết quả (Đã xử lý , chưa xử lý , Đang xử lý )
 
 		public Student? Student { get; set; }
 		public EntranceExam? EntranceExam { get; set; }
+		public Class? Class { get; set; }
 	}
 }

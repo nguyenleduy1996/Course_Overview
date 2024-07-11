@@ -11,8 +11,11 @@ namespace LModels
 
 		[Required]
 		[Column(TypeName = "decimal(10,2)")]
-		public decimal Fee { get; set; }
-		public string Status { get; set; }
+		public decimal Fee { get; set; }       // Phí kỳ thi tuyển sinh
+
+		[Required]
+		[RegularExpression("^(Complete|InComplete)$", ErrorMessage = "Invalid Entrance Exam Status")]
+		public string Status { get; set; }       // Trạng thái (Hoàn thành , chưa hoàn thành<đang diễn ra>) 
 
 		public ICollection<ExamResult> Results { get; set; }
 		public ICollection<Question> Questions { get; set; }
