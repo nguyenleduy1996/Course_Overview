@@ -9,8 +9,8 @@ namespace LModels
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int CourseID { get; set; }
 
-		[Required(ErrorMessage = "Title is required")]
-		public string Title { get; set; }
+		[Required(ErrorMessage = "Course Name is required")]
+		public string CourseName { get; set; }
 
 		[Required]
 		[DataType(DataType.MultilineText)]
@@ -19,8 +19,6 @@ namespace LModels
 		[Required]
 		[Column(TypeName = "decimal(10,2)")]
 		public decimal Fee { get; set; }
-
-		public bool IsBasic { get; set; }       // Khóa cơ bản hoăcj nâng cao 
 
 		[Required]
 		[Range(1, int.MaxValue, ErrorMessage = "Duration must be at least 1 month")]
@@ -31,7 +29,6 @@ namespace LModels
 		[NotMapped]
 		public IFormFile? ImageFile { get; set; }
 
-		public ICollection<LabSession>? LabSessions { get; set; }
-		public ICollection<Question>? Questions { get; set; }
+		public ICollection<Topic>? Topics { get; set; }
 	}
 }

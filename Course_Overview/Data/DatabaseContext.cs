@@ -31,15 +31,12 @@ namespace Course_Overview.Data
 
 			// Cấu hình Bảng ContacInfo cho 2 trường là duy nhất 
 			modelBuilder.Entity<Contact>()
-				.HasIndex(ci => ci.Email)
-				.IsUnique();
-
-			modelBuilder.Entity<Contact>()
 				.HasIndex(ci => ci.Phone)
 				.IsUnique();
 		}
 
-		public DbSet<Course> Courses { get; set; }      //Bảng cho tiết khóa học 
+		public DbSet<Course> Courses { get; set; }      //Bảng cho tiết khóa học (Java)
+		public DbSet<Topic> Topics { get; set; }      //Bảng chủ đề khóa học (Java introdule)
 		public DbSet<EntranceExam> EntranceExams { get; set; }      // Bảng kỳ thi tuyển sinh
 		public DbSet<ExamResult> ExamResults { get; set; }          //Bảng lưu kết quả thi, phân lớp của học viên 
 		public DbSet<FAQ> FAQs { get; set; }                        //Bảng câu hỏi thường gặp 
@@ -49,7 +46,11 @@ namespace Course_Overview.Data
 		public DbSet<Teacher> Teachers { get; set; }                //Bảng giáo viên
 		public DbSet<Payment> Payments { get; set; }                //Bảng thanh toán 
 		public DbSet<Question> Questions { get; set; }              //Bảng lưu câu hỏi cho sinh viên làm bài thi
-		public DbSet<StudentExam> StudentExams { get; set; }        //Bảng lưu câu trả lời của sinh viên khi làm bài thi
+		public DbSet<Answer> Answers { get; set; }        //Bảng lưu câu trả lời của sinh viên khi làm bài thi
 		public DbSet<Contact> Contacts { get; set; }        
+		public DbSet<Attendance> Attendances { get; set; }        
+		public DbSet<Admin> Admin { get; set; }        
+		public DbSet<Schedule> Schedules { get; set; }        
+		public DbSet<SubjectScores> SubjectScores { get; set; }        
 	}
 }

@@ -19,8 +19,5 @@ namespace LModels
 		[RegularExpression(@"^0\d{9,10}$", ErrorMessage = "Phone number must start with 0 and be 10 to 11 digits long.")]
 		public string Phone { get; set; }
 
-		[Required]
-		[EmailAddress]
-		public string Email { get; set; }
 	}
 }

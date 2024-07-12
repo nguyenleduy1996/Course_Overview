@@ -10,7 +10,9 @@ namespace LModels
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int StudentID { get; set; }
 
-		[Required(ErrorMessage = "Full name is required")]
+        public string ClassID { get; set; }
+
+        [Required(ErrorMessage = "Full name is required")]
 		public string FullName { get; set; }
 
 		[Required]
@@ -25,7 +27,12 @@ namespace LModels
 		[Required(ErrorMessage = "Address is required")]
 		public string Address { get; set; }
 
-		public string? ImagePath { get; set; }
+		[Required]
+		public DateTime DateOfBirth { get; set; }
+	
+		public string FeeDetails { get; set; }     //Chi tiết về học phí của học viên (bao gồm các khoản phí đã thanh toán và còn nợ).
+
+        public string? ImagePath { get; set; }
 
 		[NotMapped]
 		public IFormFile? ImageFile { get; set; }
@@ -44,9 +51,9 @@ namespace LModels
 			return $"SV{now:yyyyMMddHHmmss}";
 		}
 
-		public ICollection<LabSession> LabSessions { get; set; }
-		public ICollection<StudentExam> StudentExams { get; set; }
-		public ICollection<Payment> Payments { get; set; }
-		public ICollection<ExamResult> ExamResults { get; set; }
+		public ICollection<LabSession>? LabSessions { get; set; }
+		public ICollection<Payment>? Payments { get; set; }
+		public ICollection<ExamResult>? ExamResults { get; set; }
+		public ICollection<SubjectScores>? SubjectScores { get; set; }
 	}
 }
