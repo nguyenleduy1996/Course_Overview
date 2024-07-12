@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Course_Overview.Migrations
 {
     /// <inheritdoc />
-    public partial class CourseDatabase : Migration
+    public partial class CourseDataTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

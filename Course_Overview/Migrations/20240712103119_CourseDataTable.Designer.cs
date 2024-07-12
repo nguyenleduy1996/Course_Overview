@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Course_Overview.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240712095009_CourseDatabase")]
-    partial class CourseDatabase
+    [Migration("20240712103119_CourseDataTable")]
+    partial class CourseDataTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
