@@ -33,6 +33,11 @@ namespace Course_Overview.Data
 			modelBuilder.Entity<Contact>()
 				.HasIndex(ci => ci.Phone)
 				.IsUnique();
+
+			modelBuilder.Entity<Topic>()
+				.HasOne(t => t.Course)
+				.WithMany(c => c.Topics)
+				.HasForeignKey(t => t.CourseID);
 		}
 
 		public DbSet<Course> Courses { get; set; }      //Bảng cho tiết khóa học (Java)

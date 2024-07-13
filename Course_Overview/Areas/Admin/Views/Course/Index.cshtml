@@ -1,17 +1,20 @@
-﻿@* @using LModels
+﻿@using LModels
 @model IEnumerable<Course>
 
-<div class="card-body">
+<div class="row">
     <h4 class="card-title">Course List</h4>
-   
+    <div class="text-end">
+        <a class="btn btn-secondary" asp-action="Create" asp-area="Admin">
+            <i class="bi bi-plus-circle"></i>
+            Create a new Product
+        </a>
+    </div>
+    
     <table class="table table-striped">
         <thead>
             <tr>
                 <th> CourseID </th>
-                <th> Title </th>
-                <th> Fee </th>
-                <th> IsBasic </th>
-                <th> DurationMonths </th>
+                <th> Course Name</th>
                 <th> Image </th>
             </tr>
         </thead>
@@ -20,15 +23,12 @@
             {
                 <tr>
                     <td class="py-1">@item.CourseID</td>
-                    <td>@item.Title</td>
-                    <td>@item.Fee</td>
-                    <td>@item.IsBasic</td>
-                    <td>@item.DurationMonths</td>
+                    <td>@item.CourseName</td>
                     <td>
-                        <img src="" alt="" />
+                        <img src="~/@item.ImagePath" alt="@item.CourseName" style="width: 100px; height: 100px;" />
                     </td>
                     <td>
-                        <a class="btn btn-warning" asp-route-id="@item.CourseID" asp-action="Edit">
+                        <a class="btn btn-warning" asp-area="Admin" asp-route-id="@item.CourseID" asp-action="Edit">
                             <i class="bi bi-pencil-fill"></i>
                             Edit
                         </a>
@@ -43,4 +43,3 @@
         </tbody>
     </table>
 </div>
- *@

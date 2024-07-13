@@ -165,12 +165,6 @@ namespace Course_Overview.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DurationMonths")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Fee")
-                        .HasColumnType("decimal(10,2)");
-
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 

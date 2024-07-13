@@ -2,6 +2,7 @@ using Course_Overview.Areas.Admin.Repository;
 using Course_Overview.Areas.Admin.Service;
 using Course_Overview.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 });
 
 builder.Services.AddScoped<ICourserRepository, CourseService>();
+builder.Services.AddScoped<ITopicRepository, TopicService>();
 
 var app = builder.Build();
 
@@ -25,6 +27,14 @@ if (!app.Environment.IsDevelopment())
 	app.UseHsts();
 }
 
+// Cấu hình để phục vụ tệp tĩnh từ thư mục Upload
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Upload")),
+    RequestPath = "/Upload"
+});
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -34,7 +44,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "areas",
-	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+	pattern: "{area:exists}/{controller=Course}/{action=Index}/{id?}"
 );
 
 app.MapControllerRoute(
