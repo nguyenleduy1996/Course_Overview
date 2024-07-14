@@ -15,7 +15,7 @@ namespace LModels
 
         [Required]
         [DataType(DataType.MultilineText)]
-        public int Desciption { get; set; }
+        public string Description { get; set; }
 
         public string? ImagePath { get; set; }
 

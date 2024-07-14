@@ -1,40 +1,44 @@
 ﻿@using LModels
-@model IEnumerable<Topic>
+@model IEnumerable<Teacher>
 
 <div class="row">
-    <h4 class="card-title">Course List</h4>
+    <h4 class="card-title">Teacher List</h4>
     <div class="text-end">
         <a class="btn btn-secondary" asp-action="Create" asp-area="Admin">
             <i class="bi bi-plus-circle"></i>
-            Create a new Product
+            Create a new Teacher
         </a>
     </div>
 
     <table class="table table-striped">
         <thead>
             <tr>
-                <th> TopicID </th>
-                <th> TopicName</th>
-                <th> Course</th>
+                <th> TeacherID </th>
+                <th> FullName</th>
+                <th> TeacherCode</th>
+                <th> Email</th>
+                <th> Phone </th>
                 <th> Image </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr id="topicRow_@item.TopicID">
-                    <td class="py-1">@item.TopicID</td>
-                    <td>@item.TopicName</td>
-                    <td>@item.Course?.CourseName</td>
+                <tr id="topicRow_@item.TeacherID">
+                    <td class="py-1">@item.TeacherID</td>
+                    <td>@item.FullName</td>
+                    <td>@item.TeacherCode</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
                     <td>
-                        <img src="~/@item.ImagePath" alt="@item.TopicName" style="width: 100px; height: 100px;" />
+                        <img src="~/@item.ImagePath" alt="@item.FullName" style="width: 100px; height: 100px;" />
                     </td>
                     <td>
-                        <a class="btn btn-warning" asp-area="Admin" asp-route-id="@item.TopicID" asp-action="Update">
+                        <a class="btn btn-warning" asp-area="Admin" asp-route-id="@item.TeacherID" asp-action="Update">
                             <i class="bi bi-pencil-fill"></i>
                             Update
                         </a>
-                        <button class="btn btn-danger" onclick="deleteTopic('@item.TopicID')">
+                        <button class="btn btn-danger" onclick="deleteTeacher('@item.TeacherID')">
                             <i class="bi bi-trash3"></i>
                             Delete
                         </button>

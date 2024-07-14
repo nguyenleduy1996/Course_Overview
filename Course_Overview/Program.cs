@@ -16,6 +16,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 builder.Services.AddScoped<ICourserRepository, CourseService>();
 builder.Services.AddScoped<ITopicRepository, TopicService>();
+builder.Services.AddScoped<ITeacherRepository, TeacherService>();
 
 var app = builder.Build();
 
@@ -44,7 +45,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "areas",
-	pattern: "{area:exists}/{controller=Course}/{action=Index}/{id?}"
+	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 );
 
 app.MapControllerRoute(

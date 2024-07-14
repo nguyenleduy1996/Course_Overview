@@ -25,6 +25,7 @@ namespace Course_Overview.Areas.Admin.Service
 			if (topicExisting != null)
 			{
 				_dbContext.Topics.Remove(topicExisting);
+				await _dbContext.SaveChangesAsync();
 			}
 		}
 

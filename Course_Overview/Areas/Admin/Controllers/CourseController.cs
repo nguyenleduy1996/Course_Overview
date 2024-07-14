@@ -52,7 +52,7 @@ namespace Course_Overview.Areas.Admin.Controllers
             return View(course);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Update(int id)
         {
 			try
 			{
@@ -70,5 +70,63 @@ namespace Course_Overview.Areas.Admin.Controllers
             }
     
         }
+
+		[HttpPost]
+		public async Task<IActionResult> Update(Course course)
+		{
+			try
+			{
+                if (ModelState.IsValid)
+                {
+                    if (course.ImageFile != null)
+                    {
+						var imagePath = await UploadFile.SaveImage("Courseimages", course.ImageFile);
+                        if (!string.IsNullOrEmpty(imagePath))
+                        {
+                            if (!string.IsNullOrEmpty(course.ImagePath))
+                            {
+								UploadFile.DeleteImage(course.ImagePath);
+                            }
+
+							//Cập nhật đường dân mới vào model
+							course.ImagePath = imagePath;
+                        }
+                    }
+					await _courseRepository.UpdateCourse(course);
+					return RedirectToAction("Index");
+                }
+            }
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+			}
+			return View(course);
+		}
+
+		public async Task<IActionResult>Delete(int id)
+		{
+			try
+			{
+				var courseExisting = await _courseRepository.GetOneCourse(id);
+				if (courseExisting == null)
+				{
+					return NotFound();
+				}
+				else
+				{
+                    if (!string.IsNullOrEmpty(courseExisting.ImagePath))
+                    {
+						UploadFile.DeleteImage(courseExisting.ImagePath);
+                    }
+					await _courseRepository.DeleteCourse(id);
+					return RedirectToAction("Index");
+                }
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+			}
+			return View();
+		}
     }
 }

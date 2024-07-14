@@ -20,12 +20,12 @@
                 await formFile.CopyToAsync(fileStream);
             }
 
-            return Path.Combine(baseFolder, subFolder, imageName).Replace("\\", "/");
+            return Path.Combine(baseFolder, subFolder, imageName);
         }
 
-        public static bool DeleteImage(string subFolder, string imageName)
+        public static bool DeleteImage( string imagePath)
         {
-            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), baseFolder, subFolder, imageName);
+         //   var imagePath = Path.Combine(Directory.GetCurrentDirectory(), baseFolder, imageName);
 
             if (File.Exists(imagePath))
             {

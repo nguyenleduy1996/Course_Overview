@@ -1,28 +1,29 @@
 ﻿@using LModels
-@model Topic
+@model Teacher
 
 <div class="card shadow boder-0 mt-4">
 	<div class="card-body p-4">
-		<h2>Create Topic</h2>
+		<h2>Create Teacher</h2>
 		<form class="bg-gray" asp-action="Create" enctype="multipart/form-data">
 			<div class="mb-3 mt-3 form-group">
-				<label for="name">Title:</label>
+				<label for="name">Full name:</label>
 				<input type="text" class="form-control"
-					   placeholder="Enter Title" asp-for="TopicName">
-				<span class="text-danger" asp-validation-for="TopicName"></span>
-			</div>
-
-			<div class="mb-3 mt-3">
-				<label for="Category">Category:</label>
-				<select asp-items="@ViewBag.Courses" class="form-select"
-						asp-for="CourseID"></select>
+					   placeholder="Enter Full name" asp-for="FullName">
+				<span class="text-danger" asp-validation-for="FullName"></span>
 			</div>
 
 			<div class="mb-3 mt-3 form-group">
-				<label for="Description">Description:</label>
-				<textarea type="text" class="form-control"
-						  placeholder="Enter Description" asp-for="Description"></textarea>
-				<span class="text-danger" asp-validation-for="Description"></span>
+				<label for="Email">Email:</label>
+				<input type="email" class="form-control"
+					   placeholder="Enter email" asp-for="Email">
+				<span class="text-danger" asp-validation-for="Email"></span>
+			</div>
+
+			<div class="mb-3 mt-3 form-group">
+				<label for="Phone">Phone:</label>
+				<input type="number" class="form-control"
+					   placeholder="Enter Phone" asp-for="Phone">
+				<span class="text-danger" asp-validation-for="Phone"></span>
 			</div>
 
 			<div class="mb-3 mt-3">
