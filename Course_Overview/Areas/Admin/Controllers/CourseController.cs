@@ -18,6 +18,18 @@ namespace Course_Overview.Areas.Admin.Controllers
 		public async Task<IActionResult> Index()
 		{
 			var courses = await _courseRepository.GetAllCourse();
+			// Gỡ lỗi: Kiểm tra dữ liệu
+			if (courses == null || !courses.Any())
+			{
+				Console.WriteLine("No courses available.");
+			}
+			else
+			{
+				foreach (var course in courses)
+				{
+					Console.WriteLine($"Course: {course.CourseName}, Image: {course.ImagePath}");
+				}
+			}
 			return View(courses);
 		}
 

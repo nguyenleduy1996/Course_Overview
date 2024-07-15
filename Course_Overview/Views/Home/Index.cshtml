@@ -1,14 +1,16 @@
 ﻿<!-- Service Start -->
-@Html.Partial("_Service");
+@Html.Partial("_Service")
 <!-- Service End -->
 
 <!-- About Start -->
-@Html.Partial("_AboutUs");
+@Html.Partial("_AboutUs")
 <!-- About End -->
 
 <!-- Categories Start -->
-@Html.Partial("_CourseCategory");
-<!-- Categories Start -->
+<div id="courses-section" class="container-xxl py-5">
+	@Html.Partial("_CourseCategory")
+</div>
+<!-- Categories end -->
 
 <!-- Courses Start -->
 <div class="container-xxl py-5">
@@ -108,9 +110,9 @@
 <!-- Courses End -->
 
 <!-- Team Start -->
-@Html.Partial("_ExpertInstructors");
+@Html.Partial("_ExpertInstructors")
 <!-- Team End -->
 
 <!-- Testimonial Start -->
-@Html.Partial("_StudentFeedBack");
+@Html.Partial("_StudentFeedBack")
 <!-- Testimonial End -->
