@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using LModels.Client;
 
 namespace LModels.ViewModels
 {
@@ -10,5 +7,7 @@ namespace LModels.ViewModels
 	{
 		public IEnumerable<Course> Courses { get; set; }
 		public IEnumerable<Teacher> Teachers { get; set; }
+		public IEnumerable<Slider> Sliders { get; set; }
+		public IEnumerable<Services> Services { get; set; }
 	}
 }

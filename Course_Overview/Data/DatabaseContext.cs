@@ -1,4 +1,5 @@
 ﻿using LModels;
+using LModels.Client;
 using Microsoft.EntityFrameworkCore;
 
 namespace Course_Overview.Data
@@ -57,5 +58,7 @@ namespace Course_Overview.Data
 		public DbSet<Admin> Admin { get; set; }        
 		public DbSet<Schedule> Schedules { get; set; }        
 		public DbSet<SubjectScores> SubjectScores { get; set; }        
+		public DbSet<Slider> Sliders { get; set; }                    //Bảng Slider
+		public DbSet<Services> Services { get; set; }                    //Bảng Service
 	}
 }
