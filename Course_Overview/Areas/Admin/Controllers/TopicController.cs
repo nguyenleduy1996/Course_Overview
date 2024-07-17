@@ -3,6 +3,7 @@ using Course_Overview.Helper;
 using LModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList.Extensions;
 
 namespace Course_Overview.Areas.Admin.Controllers
 {
@@ -17,10 +18,12 @@ namespace Course_Overview.Areas.Admin.Controllers
 			_courseRepository = courserRepository;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int? page)
 		{
-			var topic = await _topicRepository.GetAllTopic();
-			return View(topic);
+			int pageSize = 8;
+			var topics = await _topicRepository.GetAllTopic();
+            var paginatedTopics = topics.ToPagedList(page ?? 1, pageSize);   //?? nêu bị null sẽ gán = 1
+            return View(paginatedTopics);
 		}
 
 		public async Task<IActionResult> Create()

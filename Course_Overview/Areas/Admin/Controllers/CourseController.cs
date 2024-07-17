@@ -1,8 +1,11 @@
-﻿using Course_Overview.Areas.Admin.Repository;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using Course_Overview.Areas.Admin.Repository;
 using Course_Overview.Areas.Admin.Service;
 using Course_Overview.Helper;
 using LModels;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList.Extensions;
 
 namespace Course_Overview.Areas.Admin.Controllers
 {
@@ -17,20 +20,29 @@ namespace Course_Overview.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+
+            //IEnumerable<Course> courses = await _courseRepository.GetAllCourse();
+            /* var options = new JsonSerializerOptions
+             {
+                 ReferenceHandler = ReferenceHandler.Preserve,
+                 WriteIndented = true
+             };
+
+             var json = JsonSerializer.Serialize(new { data = courses }, options);*/
+
+            //return Content(json, "application/json");
+            return View();
+        }
+
+        public async Task<IActionResult> GetCourses()
+        {
             var courses = await _courseRepository.GetAllCourse();
-            // Gỡ lỗi: Kiểm tra dữ liệu
-            if (courses == null || !courses.Any())
+            var options = new JsonSerializerOptions
             {
-                Console.WriteLine("No courses available.");
-            }
-            else
-            {
-                foreach (var course in courses)
-                {
-                    Console.WriteLine($"Course: {course.CourseName}, Image: {course.ImagePath}");
-                }
-            }
-            return View(courses);
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true
+            };
+            return Json(new { data = courses }, options);
         }
 
         public IActionResult Create()
