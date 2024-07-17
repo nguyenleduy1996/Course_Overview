@@ -19,7 +19,7 @@ namespace LModels
 		[RegularExpression("^(Complete|InComplete)$", ErrorMessage = "Invalid Entrance Exam Status")]
 		public string Status { get; set; }       // Trạng thái (Hoàn thành , chưa hoàn thành<đang diễn ra>) 
 
-		public ICollection<Student>? Students { get; set; }
+		//public ICollection<Student>? Students { get; set; }
 		public ICollection<ExamResult>? ExamResults { get; set; }
 	}
 }

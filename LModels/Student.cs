@@ -4,56 +4,52 @@ using Microsoft.AspNetCore.Http;
 
 namespace LModels
 {
-	public class Student
-	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int StudentID { get; set; }
-
-        public string ClassID { get; set; }
+    public class Student
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int StudentID { get; set; }
 
         [Required(ErrorMessage = "Full name is required")]
-		public string FullName { get; set; }
+        public string Name { get; set; }
 
-		[Required]
-		[EmailAddress]
-		public string Email { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
-		[Required]
-		[Phone]
-		[RegularExpression(@"^0\d{9,10}$", ErrorMessage = "Phone number must start with 0 and be 10 to 11 digits long.")]
-		public string Phone { get; set; }
+        [Required]
+        [Phone]
+        [RegularExpression(@"^0\d{9,10}$", ErrorMessage = "Phone number must start with 0 and be 10 to 11 digits long.")]
+        public string Phone { get; set; }
 
-		[Required(ErrorMessage = "Address is required")]
-		public string Address { get; set; }
+        [Required(ErrorMessage = "Address is required")]
+        public string Address { get; set; }
 
-		[Required]
-		public DateTime DateOfBirth { get; set; }
-	
-		public string FeeDetails { get; set; }     //Chi tiết về học phí của học viên (bao gồm các khoản phí đã thanh toán và còn nợ).
+        [Required]
+        public DateTime DateOfBirth { get; set; }
+
 
         public string? ImagePath { get; set; }
 
-		[NotMapped]
-		public IFormFile? ImageFile { get; set; }
-		public string IdentityCard { get; set; }
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
+        public string IdentityCard { get; set; }
 
-		//Tạo Contructor để thưc hiện Generate IdentityCard 
-		public Student()
-		{
-			IdentityCard = GenerateIdentityCard();
-		}
+        //Tạo Contructor để thưc hiện Generate IdentityCard 
+        public Student()
+        {
+            IdentityCard = GenerateIdentityCard();
+        }
 
-		// Sử dụng biêyr thức điều kiện đê thực hiện Generate
-		private string GenerateIdentityCard()
-		{
-			DateTime now = DateTime.Now;
-			return $"SV{now:yyyyMMddHHmmss}";
-		}
-
-		public ICollection<LabSession>? LabSessions { get; set; }
-		public ICollection<Payment>? Payments { get; set; }
-		public ICollection<ExamResult>? ExamResults { get; set; }
-		public ICollection<SubjectScores>? SubjectScores { get; set; }
-	}
+        // Sử dụng biêyr thức điều kiện đê thực hiện Generate
+        private string GenerateIdentityCard()
+        {
+            DateTime now = DateTime.Now;
+            return $"SV{now:yyyyMMddHHmmss}";
+        }
+        public ICollection<LabSession>? LabSessions { get; set; }
+        public ICollection<Payment>? Payments { get; set; }
+        public ICollection<ExamResult>? ExamResults { get; set; }
+        public ICollection<SubjectScores>? SubjectScores { get; set; }
+    }
 }

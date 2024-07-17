@@ -9,5 +9,8 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.34" />
 		
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="DTOs\" />
+	</ItemGroup>
 
 </Project>

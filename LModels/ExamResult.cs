@@ -9,7 +9,7 @@ namespace LModels
 		public int ResultID { get; set; }
 		public int StudentID { get; set; }
 		public int ExamID { get; set; }
-        public string ClassID { get; set; }       //Phân loại lớp
+        public int ClassID { get; set; }       //Phân loại lớp
 
         [Required]
 		[Range(0, 10, ErrorMessage = "Mark must be between from 0 to 10")]
@@ -19,7 +19,7 @@ namespace LModels
 		[RegularExpression("^(Paid|Unpaid)$", ErrorMessage = "Invalid Payment Status")]
 		public string PaymentStatus { get; set; }     // Trạng thái thanh toán học phí của học viên (ví dụ: "Paid", "Unpaid").
 
-        public Student? Student { get; set; }
+        //public Student? Student { get; set; }
 		public EntranceExam? EntranceExam { get; set; }
 		public Class? Class { get; set; }
 	}

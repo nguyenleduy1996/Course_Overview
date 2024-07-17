@@ -15,7 +15,7 @@ namespace LModels
 		public DateTime StartTime { get; set; }     //Thời gian bắt đầu học 
 		public DateTime EndTime { get; set; }     //Thời gian kết thúc học 
 
-		public Student? Students { get; set; }
+		//public Student? Students { get; set; }
 		public Teacher? Teacher { get; set; }
 		public Course? Course { get; set; }
 	}

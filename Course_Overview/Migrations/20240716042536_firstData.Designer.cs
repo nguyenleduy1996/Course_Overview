@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Course_Overview.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240712134801_deleteFieldFeeInCourseTB")]
-    partial class deleteFieldFeeInCourseTB
+    [Migration("20240716042536_firstData")]
+    partial class firstData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -124,6 +124,58 @@ namespace Course_Overview.Migrations
                     b.ToTable("Classes");
                 });
 
+            modelBuilder.Entity("LModels.Client.Services", b =>
+                {
+                    b.Property<int>("ServiceID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ServiceID");
+
+                    b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("LModels.Client.Slider", b =>
+                {
+                    b.Property<int>("SliderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SliderID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SliderID");
+
+                    b.ToTable("Sliders");
+                });
+
             modelBuilder.Entity("LModels.Contact", b =>
                 {
                     b.Property<int>("ContactID")
@@ -167,9 +219,6 @@ namespace Course_Overview.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DurationMonths")
-                        .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
@@ -216,11 +265,7 @@ namespace Course_Overview.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultID"));
 
-                    b.Property<string>("ClassID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ClassID1")
+                    b.Property<int>("ClassID")
                         .HasColumnType("int");
 
                     b.Property<int?>("EntranceExamExamID")
@@ -241,7 +286,7 @@ namespace Course_Overview.Migrations
 
                     b.HasKey("ResultID");
 
-                    b.HasIndex("ClassID1");
+                    b.HasIndex("ClassID");
 
                     b.HasIndex("EntranceExamExamID");
 
@@ -370,11 +415,7 @@ namespace Course_Overview.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleID"));
 
-                    b.Property<string>("ClassID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ClassID1")
+                    b.Property<int>("ClassID")
                         .HasColumnType("int");
 
                     b.Property<string>("EndDate")
@@ -404,7 +445,7 @@ namespace Course_Overview.Migrations
 
                     b.HasKey("ScheduleID");
 
-                    b.HasIndex("ClassID1");
+                    b.HasIndex("ClassID");
 
                     b.HasIndex("TopicID");
 
@@ -423,10 +464,6 @@ namespace Course_Overview.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClassID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -434,22 +471,15 @@ namespace Course_Overview.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("EntranceExamExamID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FeeDetails")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("IdentityCard")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
@@ -460,8 +490,6 @@ namespace Course_Overview.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
-
-                    b.HasIndex("EntranceExamExamID");
 
                     b.HasIndex("Phone")
                         .IsUnique();
@@ -478,7 +506,7 @@ namespace Course_Overview.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectScoresID"));
 
                     b.Property<decimal>("Mark")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("Decimal(10,2)");
 
                     b.Property<int>("StudentID")
                         .HasColumnType("int");
@@ -544,8 +572,9 @@ namespace Course_Overview.Migrations
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Desciption")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
@@ -576,13 +605,15 @@ namespace Course_Overview.Migrations
                 {
                     b.HasOne("LModels.Class", "Class")
                         .WithMany("ExamResults")
-                        .HasForeignKey("ClassID1");
+                        .HasForeignKey("ClassID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LModels.EntranceExam", "EntranceExam")
                         .WithMany("ExamResults")
                         .HasForeignKey("EntranceExamExamID");
 
-                    b.HasOne("LModels.Student", "Student")
+                    b.HasOne("LModels.Student", null)
                         .WithMany("ExamResults")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -591,8 +622,6 @@ namespace Course_Overview.Migrations
                     b.Navigation("Class");
 
                     b.Navigation("EntranceExam");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("LModels.LabSession", b =>
@@ -603,7 +632,7 @@ namespace Course_Overview.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LModels.Student", "Students")
+                    b.HasOne("LModels.Student", null)
                         .WithMany("LabSessions")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -617,27 +646,25 @@ namespace Course_Overview.Migrations
 
                     b.Navigation("Course");
 
-                    b.Navigation("Students");
-
                     b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("LModels.Payment", b =>
                 {
-                    b.HasOne("LModels.Student", "Student")
+                    b.HasOne("LModels.Student", null)
                         .WithMany("Payments")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("LModels.Schedule", b =>
                 {
                     b.HasOne("LModels.Class", "Class")
                         .WithMany("Schedules")
-                        .HasForeignKey("ClassID1");
+                        .HasForeignKey("ClassID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LModels.Topic", "Topic")
                         .WithMany("Schedules")
@@ -650,16 +677,9 @@ namespace Course_Overview.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("LModels.Student", b =>
-                {
-                    b.HasOne("LModels.EntranceExam", null)
-                        .WithMany("Students")
-                        .HasForeignKey("EntranceExamExamID");
-                });
-
             modelBuilder.Entity("LModels.SubjectScores", b =>
                 {
-                    b.HasOne("LModels.Student", "Student")
+                    b.HasOne("LModels.Student", null)
                         .WithMany("SubjectScores")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -670,8 +690,6 @@ namespace Course_Overview.Migrations
                         .HasForeignKey("TopicID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Student");
 
                     b.Navigation("Topic");
                 });
@@ -702,8 +720,6 @@ namespace Course_Overview.Migrations
             modelBuilder.Entity("LModels.EntranceExam", b =>
                 {
                     b.Navigation("ExamResults");
-
-                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("LModels.Student", b =>

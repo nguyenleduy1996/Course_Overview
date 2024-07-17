@@ -30,6 +30,12 @@
 
 	<!-- Template Stylesheet -->
 	<link href="css/style.css" rel="stylesheet">
+	<style>
+		.Boder-custom {
+			border : 1px solid #ffff;
+			border-radius : 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -41,6 +47,7 @@
 		</div>
 	</div>
 	<!-- Spinner End -->
+
 	<!-- Navbar Start -->
 	<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
 		<a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
@@ -58,11 +65,11 @@
 			<div class="navbar-nav ms-auto p-4 p-lg-0">
 				<a asp-controller="Home" asp-action="Index" class="nav-item nav-link active">Home</a>
 				<a href="page/about.html" class="nav-item nav-link">About</a>
-				<a href="#courses-section" class="nav-item nav-link">Courses</a>
+				<a asp-controller="Course" asp-action="Index" class="nav-item nav-link">Courses</a>
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
 					<div class="dropdown-menu fade-down m-0">
-						<a href="page/team.html" class="dropdown-item">Our Team</a>
+						<a  asp-controller="OurTeam" asp-action="Index" class="dropdown-item">Our Team</a>
 						<a href="page/testimonial.html" class="dropdown-item">Testimonial</a>
 						<a href="page/404.html" class="dropdown-item">404 Page</a>
 					</div>
@@ -73,8 +80,12 @@
 		</div>
 	</nav>
 	<!-- Navbar End -->
-	
+
+
+	<!--Main Start-->
 	@RenderBody()
+	<!--Main Start-->
+
 	<!-- Footer Start -->
 	<div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container py-5">

@@ -1,4 +1,5 @@
-﻿using LModels;
+﻿
+using LModels;
 using LModels.Client;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,7 +40,8 @@ namespace Course_Overview.Data
 				.HasOne(t => t.Course)
 				.WithMany(c => c.Topics)
 				.HasForeignKey(t => t.CourseID);
-		}
+
+        }
 
 		public DbSet<Course> Courses { get; set; }      //Bảng cho tiết khóa học (Java)
 		public DbSet<Topic> Topics { get; set; }      //Bảng chủ đề khóa học (Java introdule)

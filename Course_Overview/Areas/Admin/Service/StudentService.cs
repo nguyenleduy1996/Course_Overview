@@ -8,6 +8,7 @@ namespace Course_Overview.Areas.Admin.Service
     public class StudentService : IStudentRepository
     {
         private readonly DatabaseContext _dbContext;
+
         public StudentService(DatabaseContext dbContext)
         {
             _dbContext = dbContext;

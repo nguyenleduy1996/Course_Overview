@@ -29,7 +29,7 @@ namespace LModels
 			return $"P{now:yyyyMMddHHmmss}";
 		}
 
-		public Student? Student { get; set; }
+		//public Student? Student { get; set; }
 	}
 }
 
