@@ -19,6 +19,7 @@ builder.Services.AddScoped<ITopicRepository, TopicService>();
 builder.Services.AddScoped<ITeacherRepository, TeacherService>();
 builder.Services.AddScoped<IStudentRepository, StudentService>();
 builder.Services.AddScoped<IClassRepository, ClassService>();
+builder.Services.AddScoped<IFAQRepository, FAQService>();
 
 var app = builder.Build();
 

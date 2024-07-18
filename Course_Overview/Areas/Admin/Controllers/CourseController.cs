@@ -18,7 +18,7 @@ namespace Course_Overview.Areas.Admin.Controllers
             _courseRepository = courseRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
