@@ -4,7 +4,7 @@
 <div class="container-fluid p-0 mb-5">
 	<div class="owl-carousel header-carousel position-relative">
 
-		@foreach(var item in Model.Sliders)
+		@foreach(var item in Model.Sliders.Take(2))
 		{
 			<div class="owl-carousel-item position-relative">
 				<img class="img-fluid" src="~/@item.ImagePath" alt="@item.Title" style="height: 600px">
