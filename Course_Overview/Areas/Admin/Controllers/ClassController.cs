@@ -1,4 +1,6 @@
-﻿using Course_Overview.Areas.Admin.Repository;
+﻿using System.Text.Json.Serialization;
+using System.Text.Json;
+using Course_Overview.Areas.Admin.Repository;
 using Course_Overview.Data;
 using LModels;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +19,20 @@ namespace Course_Overview.Areas.Admin.Controllers
             _classRepository = classRepository;
             _teacherRepository = teacherRepository;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
+        {          
+            return View();
+        }
+
+        public async Task<IActionResult> GetClass()
         {
             var rooms = await _classRepository.GetAllClass();
-            return View(rooms);
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true
+            };
+            return Json(new { data = rooms }, options);
         }
 
         public async Task<IActionResult> Create()

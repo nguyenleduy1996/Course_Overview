@@ -10,7 +10,7 @@
         </a>
     </div>
 
-    <table class="table table-striped">
+    <table class="table table-striped" id="classTable">
         <thead>
             <tr>
                 <th> ClassID </th>
@@ -20,30 +20,6 @@
                 <th> ClassType </th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr id="topicRow_@item.ClassID">
-                    <td class="py-1">@item.ClassID</td>
-                    <td>@item.ClassName</td>
-                    <td>@item.Teacher?.FullName</td>
-                    <td>@item.Fee</td>
-                    <td>@item.ClassType</td>
-                   
-                    <td>
-                        <a class="btn btn-warning" asp-area="Admin" asp-route-id="@item.ClassID" asp-action="Update">
-                            <i class="bi bi-pencil-fill"></i>
-                            Update
-                        </a>
-                        <button class="btn btn-danger" onclick="deleteClasses('@item.ClassID')">
-                            <i class="bi bi-trash3"></i>
-                            Delete
-                        </button>
-                    </td>
-
-                </tr>
-            }
-        </tbody>
     </table>
 </div>
 
@@ -51,4 +27,5 @@
     @*Đoạn mã hiển thị thông báo alert*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/AdminLayout/assets/js/Notification.js"></script>
+    <script src="~/AdminLayout/assets//js/Class.js"></script>
 } 

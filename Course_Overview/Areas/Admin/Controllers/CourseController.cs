@@ -20,17 +20,6 @@ namespace Course_Overview.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-            //IEnumerable<Course> courses = await _courseRepository.GetAllCourse();
-            /* var options = new JsonSerializerOptions
-             {
-                 ReferenceHandler = ReferenceHandler.Preserve,
-                 WriteIndented = true
-             };
-
-             var json = JsonSerializer.Serialize(new { data = courses }, options);*/
-
-            //return Content(json, "application/json");
             return View();
         }
 
@@ -127,7 +116,7 @@ namespace Course_Overview.Areas.Admin.Controllers
             return View(course);
         }
 
-        public async Task<IActionResult> Delete(int id)
+       /* public async Task<IActionResult> Delete(int id)
         {
             try
             {
@@ -151,6 +140,6 @@ namespace Course_Overview.Areas.Admin.Controllers
                 ModelState.AddModelError("", ex.Message);
             }
             return View();
-        }
+        }*/
     }
 }

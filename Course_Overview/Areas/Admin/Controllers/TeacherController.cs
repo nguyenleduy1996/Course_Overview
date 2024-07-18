@@ -1,4 +1,6 @@
-﻿using Course_Overview.Areas.Admin.Repository;
+﻿using System.Text.Json.Serialization;
+using System.Text.Json;
+using Course_Overview.Areas.Admin.Repository;
 using Course_Overview.Data;
 using Course_Overview.Helper;
 using LModels;
@@ -18,13 +20,23 @@ namespace Course_Overview.Areas.Admin.Controllers
 			_teacherRepository = teacherRepository;
 			_dbContext = dbContext;
 		}
-		public async Task<IActionResult> Index()
+		public IActionResult Index()
 		{
-			var teachers = await _teacherRepository.GetAllTeacher();
-			return View(teachers);
+			return View();
 		}
 
-		public IActionResult Create()
+        public async Task<IActionResult> GetTeacher()
+        {
+            var teachers = await _teacherRepository.GetAllTeacher();
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true
+            };
+            return Json(new { data = teachers }, options);
+        }
+
+        public IActionResult Create()
 		{
 			return View();
 		}

@@ -1,4 +1,6 @@
-﻿using Course_Overview.Areas.Admin.Repository;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using Course_Overview.Areas.Admin.Repository;
 using Course_Overview.Helper;
 using LModels;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +22,18 @@ namespace Course_Overview.Areas.Admin.Controllers
 
 		public async Task<IActionResult> Index(int? page)
 		{
-			int pageSize = 8;
+            return View();
+		}
+
+		public async Task<IActionResult>GetTopic()
+		{
 			var topics = await _topicRepository.GetAllTopic();
-            var paginatedTopics = topics.ToPagedList(page ?? 1, pageSize);   //?? nêu bị null sẽ gán = 1
-            return View(paginatedTopics);
+			var options = new JsonSerializerOptions
+			{
+				ReferenceHandler = ReferenceHandler.IgnoreCycles,
+				WriteIndented = true
+			};
+			return Json(new { data = topics }, options);
 		}
 
 		public async Task<IActionResult> Create()
@@ -122,8 +132,7 @@ namespace Course_Overview.Areas.Admin.Controllers
 						UploadFile.DeleteImage(topicExisting.ImagePath);
 					}
 					await _topicRepository.DeleteTopic(id);
-                    //return Json(new { success = true, message = "Delete item successfully!" });
-					return RedirectToAction("Index");
+                    return Ok(new { success = true, message = "Topic deleted successfully!" });
                 }       
                
             }
