@@ -32,7 +32,7 @@ namespace Course_Overview.Areas.Admin.Service
 
 		public async Task<IEnumerable<Course>> GetAllCourse()
 		{
-			var courses = await _dbContext.Courses.Include(c => c.Topics).ToListAsync();
+			var courses = await _dbContext.Courses.Include(c => c.Topics).Include(c => c.CourseDetails).ToListAsync();
 			return courses;
 		}
 

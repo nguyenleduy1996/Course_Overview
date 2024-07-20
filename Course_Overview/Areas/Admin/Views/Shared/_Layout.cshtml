@@ -208,19 +208,24 @@
 					@*Menu 1*@
 					<li class="nav-item">
 						<a class="nav-link" data-bs-toggle="collapse" href="#courseTopicMenu" aria-expanded="false" aria-controls="courseTopicMenu">
-							<span class="menu-title">Course & Topic</span>
+							<span class="menu-title">Course & Subject</span>
 							<i class="menu-arrow"></i>
 							<i class="mdi mdi-crosshairs-gps menu-icon"></i>
 						</a>
 						<div class="collapse" id="courseTopicMenu">
 							<ul class="nav flex-column sub-menu">
 								<li class="nav-item"> <a class="nav-link" asp-controller="Course" asp-action="Index" asp-area="Admin">Course</a></li>
-								<li class="nav-item"> <a class="nav-link" asp-controller="Topic" asp-action="Index" asp-area="Admin">Topic</a></li>
+								<li class="nav-item"> <a class="nav-link" asp-controller="Topic" asp-action="Index" asp-area="Admin">Subject</a></li>
+								<li class="nav-item">
+									<a class="nav-link" asp-controller="CourseDetail" asp-action="Index" asp-area="Admin">
+										CoursDetail
+
+								</a></li>
 							</ul>
 						</div>
 					</li>
 
-					@*Menu 2*@
+					@*Menu 3*@
 					<li class="nav-item">
 						<a class="nav-link" data-bs-toggle="collapse" href="#teacherStudentMenu" aria-expanded="false" aria-controls="teacherStudentMenu">
 							<span class="menu-title">Teacher & Student</span>
@@ -235,7 +240,7 @@
 						</div>
 					</li>
 
-					@*Menu 3*@
+					@*Menu 4*@
 					<li class="nav-item">
 						<a class="nav-link" data-bs-toggle="collapse" href="#ClassMenu" aria-expanded="false" aria-controls="ClassMenu">
 							<span class="menu-title">Class & FAQ</span>
@@ -250,7 +255,7 @@
 						</div>
 					</li>
 
-					@*Menu 4*@
+					@*Menu 5*@
 					<li class="nav-item">
 						<a class="nav-link" data-bs-toggle="collapse" href="#SliderMenu" aria-expanded="false" aria-controls="SliderMenu">
 							<span class="menu-title">Service & Slider</span>

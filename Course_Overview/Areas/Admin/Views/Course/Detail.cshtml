@@ -1,0 +1,91 @@
+﻿@model LModels.ViewModels.CourseDetailShowViewModel
+
+@* <h1>@Model.CourseName</h1>
+
+<div>
+    <h3>Description</h3>
+    <p>@Model.Description</p>
+</div>
+
+<div>
+    <h3>Course Type</h3>
+    <p>@Model.CourseType</p>
+</div> *@
+
+<div>
+    @* <h3>Topics</h3>
+    <ul>
+        @foreach (var topic in Model.Topics)
+        {
+            <li>@topic.TopicName</li>
+        }
+    </ul> *@
+</div>
+
+<div>
+    <h3>Course Details</h3>
+    @if (Model.CourseDetails != null && Model.CourseDetails.Any())
+    {
+        <ul>
+            @foreach (var detail in Model.CourseDetails)
+            {
+                <li>
+                    <strong>Detail Type:</strong> @detail.DetailType
+                    <dl>
+                        @if (detail.DetailType == "FullStack")
+                        {
+                            <dt>Curriculum:</dt>
+                            <dd>@detail.Curriculum</dd>
+                            <dt>Target Audience:</dt>
+                            <dd>@detail.TargetAudience</dd>
+                            <dt>Benefits:</dt>
+                            <dd>@detail.Benefits</dd>
+                            <dt>Certification:</dt>
+                            <dd>@detail.Certification</dd>
+                        }
+                        else if (detail.DetailType == "FrontEnd")
+                        {
+                            <dt>Technologies:</dt>
+                            <dd>@detail.Technologies</dd>
+                            <dt>Learning Objectives:</dt>
+                            <dd>@detail.LearningObjectives</dd>
+                            <dt>Demand:</dt>
+                            <dd>@detail.Demand</dd>
+                            <dt>Salary:</dt>
+                            <dd>@detail.Salary</dd>
+                        }
+                        else if (detail.DetailType == "BackEnd")
+                        {
+                            <dt>Languages:</dt>
+                            <dd>@detail.Languages</dd>
+                            <dt>Frameworks:</dt>
+                            <dd>@detail.Frameworks</dd>
+                            <dt>Databases:</dt>
+                            <dd>@detail.Databases</dd>
+                            <dt>Architecture:</dt>
+                            <dd>@detail.Architecture</dd>
+                        }
+                        else if (detail.DetailType == "Game")
+                        {
+                            <dt>Game Engines:</dt>
+                            <dd>@detail.GameEngines</dd>
+                            <dt>Game Design:</dt>
+                            <dd>@detail.GameDesign</dd>
+                            <dt>Programming Languages:</dt>
+                            <dd>@detail.ProgrammingLanguages</dd>
+                            <dt>Game Development Process:</dt>
+                            <dd>@detail.GameDevelopmentProcess</dd>
+                        }
+                    </dl>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No course details available.</p>
+    }
+</div>
+
+<a href="@Url.Action("Edit", new { id = Model.Course.CourseID })" class="btn btn-primary">Edit</a>
+<a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>

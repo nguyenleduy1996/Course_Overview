@@ -4,6 +4,7 @@ using Course_Overview.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Course_Overview.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240719152115_CourseTB")]
+    partial class CourseTB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,7 +218,8 @@ namespace Course_Overview.Migrations
 
                     b.Property<string>("CourseType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -227,76 +231,10 @@ namespace Course_Overview.Migrations
                     b.HasKey("CourseID");
 
                     b.ToTable("Courses");
-                });
 
-            modelBuilder.Entity("LModels.CourseDetail", b =>
-                {
-                    b.Property<int>("DetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasDiscriminator<string>("CourseType").HasValue("Course");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetailID"));
-
-                    b.Property<string>("Architecture")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Benefits")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Certification")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CourseID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Curriculum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Databases")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Demand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DetailType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Frameworks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GameDesign")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GameDevelopmentProcess")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GameEngines")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Languages")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LearningObjectives")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProgrammingLanguages")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Salary")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetAudience")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Technologies")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DetailID");
-
-                    b.HasIndex("CourseID");
-
-                    b.ToTable("CourseDetails");
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("LModels.EntranceExam", b =>
@@ -661,6 +599,61 @@ namespace Course_Overview.Migrations
                     b.ToTable("Topics");
                 });
 
+            modelBuilder.Entity("LModels.ExtensiveCourse.FrontBackEndCourse", b =>
+                {
+                    b.HasBaseType("LModels.Course");
+
+                    b.Property<string>("Certificate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurriculumSerialized")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LearningObjectivesSerialized")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TargetAudience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("FrontBackEndCourse");
+                });
+
+            modelBuilder.Entity("LModels.ExtensiveCourse.FullStackCourse", b =>
+                {
+                    b.HasBaseType("LModels.Course");
+
+                    b.Property<string>("BenefitsSerialized")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Certification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurriculumSerialized")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TargetAudience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("Courses", t =>
+                        {
+                            t.Property("CurriculumSerialized")
+                                .HasColumnName("FullStackCourse_CurriculumSerialized");
+
+                            t.Property("TargetAudience")
+                                .HasColumnName("FullStackCourse_TargetAudience");
+                        });
+
+                    b.HasDiscriminator().HasValue("FullStackCourse");
+                });
+
             modelBuilder.Entity("LModels.Class", b =>
                 {
                     b.HasOne("LModels.Teacher", "Teacher")
@@ -670,17 +663,6 @@ namespace Course_Overview.Migrations
                         .IsRequired();
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("LModels.CourseDetail", b =>
-                {
-                    b.HasOne("LModels.Course", "Course")
-                        .WithMany("CourseDetails")
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("LModels.ExamResult", b =>
@@ -796,8 +778,6 @@ namespace Course_Overview.Migrations
 
             modelBuilder.Entity("LModels.Course", b =>
                 {
-                    b.Navigation("CourseDetails");
-
                     b.Navigation("Topics");
                 });
 

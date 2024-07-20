@@ -5,7 +5,7 @@
     <h4 class="card-title">Course List</h4>
     <div class="text-end">
         <a class="btn btn-secondary" asp-action="Create" asp-area="Admin">
-            <i class="bi bi-plus-circle"></i> Create a new Product
+            <i class="bi bi-plus-circle"></i> Create a new Course
         </a>
     </div>
 
@@ -15,15 +15,17 @@
                 <th class="text-center">CourseID</th>
                 <th class="text-center">Course Name</th>
                 <th class="text-center">Image</th>
+                <th class="text-center">CourseType</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
     </table>
+
 </div>
 
 @section scripts {
     @*Đoạn mã hiển thị thông báo alert*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/AdminLayout/assets/js/Notification.js"></script>    
-    <script src="~/AdminLayout/assets/js/Course.js"></script>
+    <script src="~/AdminLayout//assets/js/Course.js"></script>
 }
