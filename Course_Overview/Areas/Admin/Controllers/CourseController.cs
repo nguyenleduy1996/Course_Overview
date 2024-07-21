@@ -14,15 +14,10 @@ namespace Course_Overview.Areas.Admin.Controllers
     public class CourseController : Controller
     {
         private readonly ICourserRepository _courseRepository;
-        private readonly ICourseDetailRepository _courseDetailRepository;
         private readonly ITopicRepository _topicRepository;
-        public CourseController(ICourserRepository courseRepository,
-                                ICourseDetailRepository courseDetailRepository,
-                                ITopicRepository topicRepository
-            )
+        public CourseController(ICourserRepository courseRepository,ITopicRepository topicRepository)
         {
             _courseRepository = courseRepository;
-            _courseDetailRepository = courseDetailRepository;
             _topicRepository = topicRepository;
         }
 
@@ -42,17 +37,8 @@ namespace Course_Overview.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            // Lấy các chi tiết của khóa học
-            var courseDetails = await _courseDetailRepository.GetByCourseIdAsync(id);
-
-            var viewModel = new CourseDetailShowViewModel
-            {
-                Course = course,
-                CourseDetails = courseDetails.ToList()
-            };
-
             // Trả về view với dữ liệu khóa học
-            return View(viewModel);
+            return View(course);
         }
 
         public async Task<IActionResult> GetCourses()
@@ -173,57 +159,5 @@ namespace Course_Overview.Areas.Admin.Controllers
              }
              return View();
          }*/
-
-        /*public async Task<IActionResult> CreateDetail(int id)
-        {
-            var course = await _courseRepository.GetOneCourse(id);
-            if (course == null || course.CourseType != "FullStackCourseDetail")
-            {
-                return NotFound("Course not found or not a FullStackCourseDetail type");
-            }
-
-            var model = new FullStackCourseDetailViewModel
-            {
-                CourseID = course.CourseID
-            };
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateDetail(FullStackCourseDetailViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var courseExisting = await _courseRepository.GetOneCourse(model.CourseID);
-                if (courseExisting == null)
-                {
-                    ModelState.AddModelError("", "Course not found.");
-                    return NotFound();
-                }
-
-                if (courseExisting.CourseName == null)
-                {
-                    return NotFound();
-                }
-
-                if (courseExisting.CourseType != "FullStackCourseDetail" )
-                {
-                    ModelState.AddModelError("", "The CourseType must be 'FullStackCourseDetail' for this operation.");
-                    return View(model);
-                }
-
-                var fullStackCourseDetail = new FullStackCourseDetail
-                {
-                    CourseID = model.CourseID,
-                    Curriculum = model.Curriculum,
-                    TargetAudience = model.TargetAudience,
-                    Benefits = model.Benefits,
-                    Certification = model.Certification
-                };
-                await _fullStackCourseDetailRepository.AddFullStackCourseDetail(fullStackCourseDetail);       
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }*/
     }
 }

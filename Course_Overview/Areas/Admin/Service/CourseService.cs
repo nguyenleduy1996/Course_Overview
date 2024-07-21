@@ -17,7 +17,7 @@ namespace Course_Overview.Areas.Admin.Service
 		{
 			await _dbContext.Courses.AddAsync(course);
 			await _dbContext.SaveChangesAsync();
-			
+
 		}
 
 		public async Task DeleteCourse(int id)
@@ -32,7 +32,7 @@ namespace Course_Overview.Areas.Admin.Service
 
 		public async Task<IEnumerable<Course>> GetAllCourse()
 		{
-			var courses = await _dbContext.Courses.Include(c => c.Topics).Include(c => c.CourseDetails).ToListAsync();
+			var courses = await _dbContext.Courses.Include(c => c.Topics).ToListAsync();
 			return courses;
 		}
 

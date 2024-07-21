@@ -17,16 +17,12 @@ namespace LModels
 		[DataType(DataType.MultilineText)]
 		public string Description { get; set; }
 
-        [Required]
-        public string CourseType { get; set; }
-
 		public string? ImagePath { get; set; }
 
 		[NotMapped]
 		public IFormFile? ImageFile { get; set; }
 
 		public ICollection<Topic>? Topics { get; set; }
-        public ICollection<CourseDetail>? CourseDetails { get; set; }
 
     }
 }

@@ -15,7 +15,6 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 });
 
 builder.Services.AddScoped<ICourserRepository, CourseService>();
-builder.Services.AddScoped<ICourseDetailRepository, CourseDetailService>();
 builder.Services.AddScoped<ITopicRepository, TopicService>();
 builder.Services.AddScoped<ITeacherRepository, TeacherService>();
 builder.Services.AddScoped<IStudentRepository, StudentService>();
@@ -31,6 +30,8 @@ if (!app.Environment.IsDevelopment())
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
+
+
 
 // Cấu hình để phục vụ tệp tĩnh từ thư mục Upload
 app.UseStaticFiles(new StaticFileOptions

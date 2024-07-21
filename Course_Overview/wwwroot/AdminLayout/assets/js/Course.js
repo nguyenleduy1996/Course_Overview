@@ -24,14 +24,6 @@
                 }
             },
             {
-               "data": "CourseType",  
-               "className": "text-center ",
-               "width": "25%",
-               "render": function (data) {
-                    return `<h6>${data}</h6>`;
-                }
-            },
-            {
                 "data": 'CourseID',
                 "render": function (data) {
                     return `<div class="w-75 btn-group" role="group">
@@ -40,11 +32,7 @@
                                                </a>   
                                                <a href="/admin/course/Detail/${data}" class="btn btn-primary mx-2" >
                                                    <i class="bi bi-plus-square"></i> Detail
-                                               </a>
-                                               <a href="/admin/CourseDetail/Create/${data}" class="btn btn-primary mx-2" >
-                                                   <i class="bi bi-plus-square"></i> Add Detail
-                                               </a>
-
+                                               </a>                                             
                                             </div>`;
                 },
                 "width": "20%"

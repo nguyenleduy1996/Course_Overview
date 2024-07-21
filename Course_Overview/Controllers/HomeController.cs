@@ -55,7 +55,13 @@ namespace Course_Overview.Controllers
 			return View(viewModel);
 		}
 
-		public IActionResult Privacy()
+        public async Task<IActionResult> CourseMenu()
+        {
+            var courses = await _courseRepository.GetAllCourse();
+            return PartialView("_CourseMenu", courses);
+        }
+
+        public IActionResult Privacy()
 		{
 			return View();
 		}

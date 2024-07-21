@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\ViewModels\" />
     <Folder Include="Areas\Client\Controllers\" />
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Models\" />
@@ -38,6 +37,12 @@
 
   <ItemGroup>
     <None Include="wwwroot\AdminLayout\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CKFinder">
+      <HintPath>..\..\..\CKEditor\plugin\ckfinder\bin\Debug\CKFinder.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

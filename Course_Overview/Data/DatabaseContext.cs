@@ -44,18 +44,11 @@ namespace Course_Overview.Data
             modelBuilder.Entity<Topic>()
                 .HasOne(t => t.Course)
                 .WithMany(c => c.Topics)
-                .HasForeignKey(t => t.CourseID);
-
-            // Cấu hình mối quan hệ giữa Course và CourseDetail
-            modelBuilder.Entity<CourseDetail>()
-                .HasOne(t => t.Course)
-                .WithMany(c => c.CourseDetails)
-                .HasForeignKey(t => t.CourseID);
+                .HasForeignKey(t => t.CourseID);        
 
         }
 
 		public DbSet<Course> Courses { get; set; }      //Bảng cho tiết khóa học (Java)
-        public DbSet<CourseDetail> CourseDetails { get; set; }
         public DbSet<Topic> Topics { get; set; }      //Bảng chủ đề khóa học (Java introdule)
 		public DbSet<EntranceExam> EntranceExams { get; set; }      // Bảng kỳ thi tuyển sinh
 		public DbSet<ExamResult> ExamResults { get; set; }          //Bảng lưu kết quả thi, phân lớp của học viên 
