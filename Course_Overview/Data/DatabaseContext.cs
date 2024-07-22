@@ -35,6 +35,15 @@ namespace Course_Overview.Data
 				.HasIndex(ci => ci.Phone)
 				.IsUnique();
 
+			modelBuilder.Entity<Contact>()
+				.HasIndex(ci => ci.Phone1)
+				.IsUnique();
+
+			modelBuilder.Entity<Contact>()
+				.HasIndex(ci => ci.Phone2)
+				.IsUnique();
+
+
 			modelBuilder.Entity<Topic>()
 				.HasOne(t => t.Course)
 				.WithMany(c => c.Topics)

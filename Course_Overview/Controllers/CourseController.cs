@@ -37,6 +37,12 @@ namespace Course_Overview.Controllers
 					return NotFound();
 				}
 
+				var courses = await _courserRepository.GetAllCourse();
+				if (courses == null)
+				{
+					return NotFound();
+				}
+
 				var topics = await _topicRepository.GetAllTopic();
                 if (topics == null)
                 {
@@ -48,6 +54,7 @@ namespace Course_Overview.Controllers
 				var viewModel = new CourseDetailViewModel
 				{
 					Course = course,
+					Courses = courses.ToList(),
 					Topics = topics.ToList(),
 					Sliders = sliders.ToList(),
 					SpecificSliderId = 3

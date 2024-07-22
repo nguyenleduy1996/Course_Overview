@@ -15,6 +15,7 @@ namespace Course_Overview.Controllers
 		private readonly ITeacherRepository _teacherRepository;
 		private readonly ITopicRepository _topicRepository;
 		private readonly IFAQRepository _fAQRepository;
+		private readonly IContactRepository _contactRepository;
 		private readonly DatabaseContext _dbContext;
 
 		public HomeController(ILogger<HomeController> logger,
@@ -22,6 +23,7 @@ namespace Course_Overview.Controllers
 			ITeacherRepository teacherRepository,
 			ITopicRepository topicRepository,
 			IFAQRepository fAQRepository,
+			IContactRepository contactRepository,
 			DatabaseContext dbContext
 			)
 		{
@@ -31,6 +33,7 @@ namespace Course_Overview.Controllers
 			_dbContext = dbContext;
 			_topicRepository = topicRepository;
 			_fAQRepository = fAQRepository;
+			_contactRepository = contactRepository;
 		}
 
 		public async Task<IActionResult> Index()
@@ -41,6 +44,7 @@ namespace Course_Overview.Controllers
 			var  sliderList = await _dbContext.Sliders.Where(s => s.Status).ToListAsync();	
 			var  serviceList = await _dbContext.Services.ToListAsync();
 			var fAQList = await _fAQRepository.GetAllFAQ();
+			var contactList = await _contactRepository.GetAllContact();
 
 			// Sử dụng ViewModel để gửi cả danh sách Course và Teacher đến View
 			var viewModel = new HomeIndexViewModel
@@ -50,7 +54,8 @@ namespace Course_Overview.Controllers
 				Teachers = teacherList,
 				Sliders = sliderList,
 				Services = serviceList,
-				FAQs = fAQList
+				FAQs = fAQList,
+				Contacts = contactList
 			};
 			return View(viewModel);
 		}
