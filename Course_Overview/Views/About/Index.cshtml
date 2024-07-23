@@ -1,4 +1,6 @@
-﻿@model LModels.Topic
+﻿@using LModels
+@model IEnumerable<AboutUs>
+
 
 <div class="owl-carousel header-carousel position-relative">
 	<div class="owl-carousel-item position-relative">
@@ -7,7 +9,7 @@
 			<div class="container">
 				<div class="row justify-content-start">
 					<div class="col-sm-10 col-lg-8">
-						<h1 class="display-3 text-white animated slideInDown text-center">@Model.TopicName</h1>
+						<h1 class="display-3 text-white animated slideInDown text-center">About Us</h1>
 					</div>
 				</div>
 			</div>
@@ -15,7 +17,17 @@
 	</div>
 </div>
 <div class="container">
-	<div class="row bg-light p-5 rounded">
-		@Html.Raw(Model.Description)
+	<div class="row">
+		<div class="col-2 sidebar bg-light mt-2"></div>
+		<div class="col-10">
+			@foreach (var about in Model)
+			{
+
+				<p class="mt-6">@Html.Raw(about.Content)</p>
+			}
+
+			<!-- Add more course details as needed -->
+		</div>
+
 	</div>
 </div>

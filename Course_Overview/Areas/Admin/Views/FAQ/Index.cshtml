@@ -18,32 +18,6 @@
 				<th class="text-center">Actions</th>
 			</tr>
 		</thead>
-		@* <tbody>
-		@foreach (var item in Model)
-		{
-		<tr>
-		<td>@item.FAQID</td>
-		<td>@item.Question</td>
-		<td>
-		<div class="description-container" id="answer_@item.FAQID">
-		@item.Answer
-		</div>
-		<button class="btn btn-link p-0" onclick="showFullAnswer('@item.FAQID')">Read more</button>
-		</td>
-		<td>
-		<a class="btn btn-warning" asp-area="Admin" asp-route-id="@item.FAQID" asp-action="Update">
-		<i class="bi bi-pencil-fill"></i>
-		Update
-		</a>
-		<button class="btn btn-danger" onclick="deleteFAQ('@item.FAQID')">
-		<i class="bi bi-trash3"></i>
-		Delete
-		</button>
-		</td>
-		</tr>
-		}
-
-		</tbody> *@
 	</table>
 </div>
 

@@ -70,6 +70,7 @@ namespace Course_Overview.Data
 		public DbSet<Question> Questions { get; set; }              //Bảng lưu câu hỏi cho sinh viên làm bài thi
 		public DbSet<Answer> Answers { get; set; }        //Bảng lưu câu trả lời của sinh viên khi làm bài thi
 		public DbSet<Contact> Contacts { get; set; }
+		public DbSet<AboutUs> AboutUs { get; set; }
 		public DbSet<Attendance> Attendances { get; set; }
 		public DbSet<Admin> Admin { get; set; }
 		public DbSet<Schedule> Schedules { get; set; }
