@@ -1,0 +1,84 @@
+﻿@using LModels
+@model IEnumerable<User>
+
+
+<div class="row">
+	<h4 class="card-title">User List</h4>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th> ID </th>
+				<th> Name </th>
+				<th> Email</th>
+				<th> Phone</th>
+				<th> Address </th>
+				<th> Status </th>
+				<th> FailedAttempts </th>
+				<th> LockoutEnd </th>
+				<th> Actions </th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr id="topicRow_@item.ID">
+					<td class="py-1">@item.ID</td>
+					<td>@item.Name</td>
+					<td>@item.Email</td>
+					<td>@item.Phone</td>
+					<td>@item.Address</td>
+					<td>
+						@if (item.LockoutEnd.HasValue)
+						{
+							<form asp-action="UnlockAccount" asp-controller="Auth" method="post">
+								<input type="hidden" name="email" value="@item.Email" />
+								<button type="submit" class="btn btn-primary">Unlock</button>
+							</form>
+						}
+					</td>
+					<td>@item.FailedAttempts</td>
+					<td>@item.LockoutEnd</td>
+					<td>
+						<a class="btn btn-warning" asp-area="Admin" asp-route-id="@item.ID" asp-action="Update">
+							<i class="bi bi-pencil-fill"></i>
+							Update
+						</a>
+						<button class="btn btn-danger" onclick="deleteStudent('@item.ID')">
+							<i class="bi bi-trash3"></i>
+							Delete
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+@section scripts {
+	@*Đoạn mã hiển thị thông báo alert*@
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="~/AdminLayout/assets/js/Notification.js"></script>
+	<script>
+		function showFullDescription(id) {
+			var descriptionElement = document.getElementById("description_" + id);
+			Swal.fire({
+				title: 'Description',
+				text: descriptionElement.textContent,
+				icon: 'info',
+				confirmButtonText: 'Close'
+			});
+		}
+
+	</script>
+}
+
+<style>
+	.description-container {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 200px; /* Đặt độ rộng phù hợp với bảng của bạn */
+		display: inline-block;
+		vertical-align: middle;
+	}
+</style>

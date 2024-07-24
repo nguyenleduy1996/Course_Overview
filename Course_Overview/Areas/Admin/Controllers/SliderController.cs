@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Course_Overview.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class SliderController : Controller
-    {
+    public class SliderController : BaseController
+	{
         private readonly DatabaseContext _dbContext;
         public SliderController(DatabaseContext dbContext)
         {

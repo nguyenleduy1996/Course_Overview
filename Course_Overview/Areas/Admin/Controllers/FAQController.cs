@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Course_Overview.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class FAQController : Controller
-    {
+    public class FAQController : BaseController
+	{
         private readonly IFAQRepository _faqRepository;
         public FAQController(IFAQRepository faqRepository)
         {

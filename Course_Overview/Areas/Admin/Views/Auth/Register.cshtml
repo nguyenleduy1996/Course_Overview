@@ -1,0 +1,62 @@
+﻿@using LModels
+@model User
+<div class="container-scroller">
+	<div class="container-fluid page-body-wrapper full-page-wrapper">
+		<div class="content-wrapper d-flex align-items-center auth">
+			<div class="row flex-grow">
+				<div class="col-lg-6 mx-auto">
+					<div class="auth-form-light text-left p-5">
+						<div class="brand-logo">
+							<h5 class="m-0 text-primary text-center">
+								<i class="bi bi-book-half"></i>Course-Overview
+							</h5>
+						</div>
+						<h4>New here?</h4>
+						<h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+						<form class="pt-3" asp-action="Register">
+							<div class="form-group">
+								<input type="text" class="form-control form-control-lg" name="Name" id="exampleInputUsername1" placeholder="Username">
+							</div>
+
+							<div class="form-group">
+								<input type="email" class="form-control form-control-lg" asp-for="Email" placeholder="Email">
+								<span asp-validation-for="Email" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<input type="password" class="form-control form-control-lg" i name="password" placeholder="Password">
+								<span asp-validation-for="Password" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<input type="text" class="form-control form-control-lg" asp-for="Address" placeholder="Adrress">
+								<span asp-validation-for="Address" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<input type="number" class="form-control form-control-lg" asp-for="Phone" placeholder="Phone">
+								<span asp-validation-for="Phone" class="text-danger"></span>
+							</div>
+							<div class="mb-3 mt-3">
+								<label for="role">Role:</label>
+								<select class="form-select" asp-for="Role">
+									<option value="Admin">Admin</option>
+									<option value="User">User</option>
+								</select>
+							</div>
+
+							<div class="mt-3">
+								<button type="Submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
+							</div>
+							<div class="text-center mt-4 font-weight-light">
+								Already have an account? <a href="login.html" class="text-primary">Login</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- content-wrapper ends -->
+	</div>
+	<!-- page-body-wrapper ends -->
+</div>

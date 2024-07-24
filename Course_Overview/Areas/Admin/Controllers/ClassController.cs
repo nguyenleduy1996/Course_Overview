@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Course_Overview.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ClassController : Controller
-    {
+    public class ClassController : BaseController
+	{
         private readonly IClassRepository _classRepository;
         private readonly ITeacherRepository _teacherRepository;
 

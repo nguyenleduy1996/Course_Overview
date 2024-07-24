@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Course_Overview.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AboutController : Controller
-    {
+    public class AboutController : BaseController
+	{
         private readonly IAboutRepository _aboutRepository;
         public AboutController(IAboutRepository aboutRepository)
         {

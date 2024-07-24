@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Course_Overview.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class ContactController : Controller
+	public class ContactController : BaseController
 	{
 		private readonly IContactRepository _contactRepository;
 		public ContactController(IContactRepository contactRepository)

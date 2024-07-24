@@ -11,13 +11,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Course_Overview.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CourseController : Controller
-    {
+    public class CourseController : BaseController
+	{
         private readonly ICourserRepository _courseRepository;
         private readonly ITopicRepository _topicRepository;
         public CourseController(ICourserRepository courseRepository,ITopicRepository topicRepository)
         {
-            _courseRepository = courseRepository;
+            _courseRepository = courseRepository ;
             _topicRepository = topicRepository;
         }
 

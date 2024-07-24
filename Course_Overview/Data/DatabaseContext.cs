@@ -43,6 +43,15 @@ namespace Course_Overview.Data
 				.HasIndex(ci => ci.Phone2)
 				.IsUnique();
 
+			// Cấu hình Bảng ContacInfo cho 2 trường là duy nhất
+
+			modelBuilder.Entity<User>()
+				.HasIndex(t => t.Email)
+				.IsUnique();
+
+			modelBuilder.Entity<User>()
+				.HasIndex(t => t.Phone)
+				.IsUnique();
 
 			modelBuilder.Entity<Topic>()
 				.HasOne(t => t.Course)
@@ -72,7 +81,7 @@ namespace Course_Overview.Data
 		public DbSet<Contact> Contacts { get; set; }
 		public DbSet<AboutUs> AboutUs { get; set; }
 		public DbSet<Attendance> Attendances { get; set; }
-		public DbSet<Admin> Admin { get; set; }
+		public DbSet<User> Users { get; set; }
 		public DbSet<Schedule> Schedules { get; set; }
 		public DbSet<SubjectScores> SubjectScores { get; set; }
 		public DbSet<Slider> Sliders { get; set; }                    //Bảng Slider

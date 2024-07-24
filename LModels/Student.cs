@@ -51,5 +51,6 @@ namespace LModels
         public ICollection<Payment>? Payments { get; set; }
         public ICollection<ExamResult>? ExamResults { get; set; }
         public ICollection<SubjectScores>? SubjectScores { get; set; }
+        public ICollection<FeedBack>? FeedBacks { get; set; }
     }
 }

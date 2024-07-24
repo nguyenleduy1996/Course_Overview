@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Course_Overview.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class TeacherController : Controller
+	public class TeacherController : BaseController
 	{
 		private readonly ITeacherRepository _teacherRepository;
 		private readonly DatabaseContext _dbContext;

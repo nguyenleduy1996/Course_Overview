@@ -10,7 +10,7 @@ using X.PagedList.Extensions;
 namespace Course_Overview.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class TopicController : Controller
+	public class TopicController : BaseController
 	{
 		private readonly ITopicRepository _topicRepository;
 		private readonly ICourserRepository _courseRepository;

@@ -1,4 +1,6 @@
-﻿
+﻿@using Newtonsoft.Json
+@using Course_Overview.Helper
+@inject IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +59,23 @@
 								<span class="availability-status online"></span>
 							</div>
 							<div class="nav-profile-text">
-								<p class="mb-1 text-black">David Greymaax</p>
+								<p class="mb-1 text-black">
+									@{
+										var user = SessionHelper.GetUserFromSession(HttpContextAccessor.HttpContext);
+										if (user == null)
+										{
+											<div class="navbar-text">
+												Welcome, Guest!
+											</div>
+										}
+										else
+										{
+											<div class="navbar-text">
+												@user.Name!
+											</div>
+										}
+									}
+								</p>
 							</div>
 						</a>
 						<div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -65,7 +83,7 @@
 								<i class="mdi mdi-cached me-2 text-success"></i> Activity Log
 							</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">
+							<a class="dropdown-item" asp-action="Logout" asp-controller="Auth" asp-area="Admin">
 								<i class="mdi mdi-logout me-2 text-primary"></i> Signout
 							</a>
 						</div>
@@ -280,6 +298,20 @@
 						</div>
 					</li>
 
+					@*Menu 7*@
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#UserMenu" aria-expanded="false" aria-controls="UserMenu">
+							<span class="menu-title">User</span>
+							<i class="menu-arrow"></i>
+							<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+						</a>
+						<div class="collapse" id="UserMenu">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" asp-controller="Auth" asp-action="Index" asp-area="Admin">User</a></li>
+								@* <li class="nav-item"> <a class="nav-link" asp-controller="About" asp-action="Index" asp-area="Admin">About</a></li> *@
+							</ul>
+						</div>
+					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
@@ -324,9 +356,8 @@
 				<!-- content-wrapper ends -->
 				<!-- partial:partials/_footer.html -->
 				<footer class="footer">
-					<div class="container-fluid d-flex justify-content-between">
-						<span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © bootstrapdash.com 2021</span>
-						<span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin template</a> from Bootstrapdash.com</span>
+					<div class="container-fluid text-center">
+						<span class="text-muted  d-block text-center text-sm-start d-sm-inline-block">Copyright © bootstrapdash.com 2021</span>					
 					</div>
 				</footer>
 				<!-- partial -->

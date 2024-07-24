@@ -1,6 +1,9 @@
 using Course_Overview.Areas.Admin.Repository;
 using Course_Overview.Areas.Admin.Service;
 using Course_Overview.Data;
+using LModels.Client;
+using LModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -14,6 +17,8 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectDB"));
 });
 
+builder.Services.AddScoped<IUserRepository, UserService>();
+builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<ICourserRepository, CourseService>();
 builder.Services.AddScoped<ITopicRepository, TopicService>();
 builder.Services.AddScoped<ITeacherRepository, TeacherService>();
@@ -22,6 +27,17 @@ builder.Services.AddScoped<IClassRepository, ClassService>();
 builder.Services.AddScoped<IFAQRepository, FAQService>();
 builder.Services.AddScoped<IContactRepository, ContactService>();
 builder.Services.AddScoped<IAboutRepository, AboutService>();
+// Đăng ký IPasswordHasher<User>
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+// Phần login 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromMinutes(30);
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -49,10 +65,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
 	name: "areas",
-	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+	pattern: "{area:exists}/{controller=Auth}/{action=Login}/{id?}"
 );
 
 app.MapControllerRoute(

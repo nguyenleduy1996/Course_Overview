@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Course_Overview.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class ServiceController : Controller
+	public class ServiceController : BaseController
 	{
 		private readonly DatabaseContext _dbContext;
 		public ServiceController(DatabaseContext dbContext)
