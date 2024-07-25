@@ -19,9 +19,9 @@ namespace Course_Overview.Areas.Admin.Service
 			await _dbContext.SaveChangesAsync();
 		}
 
-		public async Task DeleteUser(int id)
+		public async Task DeleteUser(string email)
 		{
-			var user = await _dbContext.Users.FindAsync(id);
+			var user = await GetUserByEmailAsync(email);
 			if (user != null)
 			{
 				_dbContext.Users.Remove(user);
@@ -44,6 +44,16 @@ namespace Course_Overview.Areas.Admin.Service
 		public async Task<User> GetUserByEmailAsync(string email)
 		{
 			return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+		}
+
+		public async Task<User> GetUserByEmailConfirmationTokenAsync(string token)
+		{
+			return await _dbContext.Users.SingleOrDefaultAsync(u => u.EmailConfirmationToken == token);
+		}
+
+		public async Task<User> GetUserByResetPasswordTokenAsync(string token)
+		{
+			return await _dbContext.Users.FirstOrDefaultAsync(u => u.ResetPasswordToken == token);
 		}
 
 		public async Task UpdateUser(User user)

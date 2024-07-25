@@ -4,6 +4,7 @@ using Course_Overview.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Course_Overview.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240725023954_AddTwoFieldInUserTb")]
+    partial class AddTwoFieldInUserTb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -655,6 +658,7 @@ namespace Course_Overview.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("EmailConfirmationToken")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
@@ -662,9 +666,6 @@ namespace Course_Overview.Migrations
 
                     b.Property<int>("FailedAttempts")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsNewUser")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("LockoutEnd")
                         .HasColumnType("datetime2");
@@ -681,12 +682,6 @@ namespace Course_Overview.Migrations
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ResetPasswordToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ResetPasswordTokenExpiration")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Role")
                         .IsRequired()

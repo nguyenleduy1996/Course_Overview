@@ -15,27 +15,23 @@
 						<h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
 						<form class="pt-3" asp-action="Register">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-lg" name="Name" id="exampleInputUsername1" placeholder="Username">
+								<input type="text" class="form-control form-control-lg" name="Name" id="exampleInputUsername1" placeholder="Username" required>
 							</div>
 
 							<div class="form-group">
-								<input type="email" class="form-control form-control-lg" asp-for="Email" placeholder="Email">
-								<span asp-validation-for="Email" class="text-danger"></span>
+								<input type="email" class="form-control form-control-lg" asp-for="Email" placeholder="Enter Email" required>								
 							</div>
 
 							<div class="form-group">
-								<input type="password" class="form-control form-control-lg" i name="password" placeholder="Password">
-								<span asp-validation-for="Password" class="text-danger"></span>
+								<input type="password" class="form-control form-control-lg" i asp-for="Password" placeholder="Password" required>
 							</div>
 
 							<div class="form-group">
-								<input type="text" class="form-control form-control-lg" asp-for="Address" placeholder="Adrress">
-								<span asp-validation-for="Address" class="text-danger"></span>
+								<input type="text" class="form-control form-control-lg" asp-for="Address" placeholder="Adrress" required>
 							</div>
 
 							<div class="form-group">
-								<input type="number" class="form-control form-control-lg" asp-for="Phone" placeholder="Phone">
-								<span asp-validation-for="Phone" class="text-danger"></span>
+								<input type="number" class="form-control form-control-lg" asp-for="Phone" placeholder="Phone" required>								
 							</div>
 							<div class="mb-3 mt-3">
 								<label for="role">Role:</label>
@@ -49,7 +45,7 @@
 								<button type="Submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
 							</div>
 							<div class="text-center mt-4 font-weight-light">
-								Already have an account? <a href="login.html" class="text-primary">Login</a>
+								Already have an account? <a asp-action="Login" asp-controller="Auth" asp-area="Admin" class="text-primary">Login</a>
 							</div>
 						</form>
 					</div>

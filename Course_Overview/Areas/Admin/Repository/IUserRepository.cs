@@ -8,8 +8,11 @@ namespace Course_Overview.Areas.Admin.Repository
 		Task<User> GetUserByEmailAsync(string email);
 		Task AddUser(User user);
 		Task UpdateUser(User user);
-		Task DeleteUser(int id);
+		Task DeleteUser(string email);
 		// Lấy số lần đăng nhập thất bại cho email
 		Task<int> GetFailedAttemptsAsync(string email);
+
+		Task<User> GetUserByEmailConfirmationTokenAsync(string token);
+		Task<User> GetUserByResetPasswordTokenAsync(string token);
 	}
 }

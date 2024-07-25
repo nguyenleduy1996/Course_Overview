@@ -1,6 +1,8 @@
 ﻿using Course_Overview.Areas.Admin.Repository;
 using Course_Overview.Areas.Admin.Service;
+using Course_Overview.Areas.Admin.Viewmodels;
 using Course_Overview.Helper;
+using Course_Overview.Service;
 using LModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,19 +17,28 @@ namespace Course_Overview.Areas.Admin.Controllers
 		private readonly IUserRepository _userRepository;
 		private readonly IPasswordHasher<User> _passwordHasher;      //Sử dụng Identity để Hash Password
 		private readonly LoginService _loginService;
-		private readonly ILogger<AuthController> _logger;
-		public AuthController(IUserRepository userRepository, 
-			IPasswordHasher<User> passwordHasher, 
-			ILogger<AuthController> logger,
-			LoginService loginService
+		private readonly EmailService _emailService;
+
+		public AuthController(IUserRepository userRepository,
+			IPasswordHasher<User> passwordHasher,
+			LoginService loginService,
+			EmailService emailService
 			)
 		{
 			_userRepository = userRepository;
 			_passwordHasher = passwordHasher;
 			_loginService = loginService;
-			_logger = logger;
+			_emailService = emailService;
+
 		}
 
+		public async Task<IActionResult> Index()
+		{
+			var users = await _userRepository.GetAllUser();
+			return View(users);
+		}
+
+		//Phương thức View Login
 		public async Task<IActionResult> Login()
 		{
 			//Kiểm tra người dùng đã đăng nhập chưa , nếu đăng nhập rồi thì không thể đăng nhập tiếp 
@@ -62,8 +73,15 @@ namespace Course_Overview.Areas.Admin.Controllers
 				return RedirectToAction("Login");
 			}
 
-			// Xác thực mật khẩu
-			var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, Password);
+            //kiểm tra email đã đươcj xác thực hay chưa 
+            if (user.IsNewUser && !user.EmailConfirmed)
+            {
+				TempData["ErrorMessage"] = "Please confirm your email before logging in.";
+				return RedirectToAction("Login");
+			}
+
+            // Xác thực mật khẩu
+            var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, Password);
 			if (passwordVerificationResult != PasswordVerificationResult.Success)
 			{
 				await _loginService.RecordfailedAtTempt(user); // Ghi lại số lần đăng nhập thất bại
@@ -93,6 +111,7 @@ namespace Course_Overview.Areas.Admin.Controllers
 
 		}
 
+		//Phương thức đăng ký tài khoản
 		public async Task<IActionResult> Register(User user, string password)
 		{
 			if (string.IsNullOrEmpty(password))
@@ -103,22 +122,62 @@ namespace Course_Overview.Areas.Admin.Controllers
 
 			user.Password = _passwordHasher.HashPassword(user, password);
 			user.FailedAttempts = 0; // Khởi tạo số lần đăng nhập thất bại
+
+			//Tạo ra 1 mã thông báo xác nhận email
+			var token = Guid.NewGuid().ToString();
+			user.EmailConfirmationToken = token;
+			user.EmailConfirmed = false;
+			user.IsNewUser = true;    // điều kiện này để user cần xác thực email trươc khi login
+
 			await _userRepository.AddUser(user);
+
+			//Gui thong bao ma xac nhan toi email
+			var callbackUrl = Url.Action("ConfirmEmail", "Auth", new { token }, protocol: HttpContext.Request.Scheme);
+			await _emailService.SendMail(user.Email, "Confirm your email", $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+			TempData["SuccessMessage"] = "Registration successful. Please check your email to confirm your account.";
+
 			return RedirectToAction("Login");
 		}
 
+		//Phương thưc xác nhận Email
+		public async Task<IActionResult> ConfirmEmail(string token)
+		{
+			if (string.IsNullOrEmpty(token))
+			{
+				TempData["ErrorMessage"] = "Invalid token.";
+				return RedirectToAction("Index");
+			}
+
+			try
+			{
+				var user = await _userRepository.GetUserByEmailConfirmationTokenAsync(token);
+				if (user != null)
+				{
+					user.EmailConfirmed = true;
+					user.EmailConfirmationToken = null;
+					await _userRepository.UpdateUser(user);
+					TempData["SuccessMessage"] = "Email confirmed successfully. You can now log in.";
+					return RedirectToAction("Login");
+				}
+
+				TempData["ErrorMessage"] = "Invalid token.";
+			}
+			catch (Exception ex)
+			{
+
+				TempData["ErrorMessage"] = "An error occurred while confirming your email. Please try again later.";
+			}
+
+			return RedirectToAction("Index");
+		}
+
+		//Phương thức Logout
 		public IActionResult Logout()
 		{
 			SessionHelper.ClearSession(HttpContext);
 			return RedirectToAction("Login", "Auth");
 		}
 
-
-		public async Task<IActionResult> Index()
-		{
-			var users = await _userRepository.GetAllUser();
-			return View(users);
-		}
 
 		// Phương thức mở khóa tài khoản
 		[HttpPost]
@@ -146,6 +205,103 @@ namespace Course_Overview.Areas.Admin.Controllers
 
 			TempData["SuccessMessage"] = "Account unlocked successfully.";
 			return RedirectToAction("Index"); // Redirect về trang danh sách người dùng
+		}
+
+		//Phương thức View ForgotPassword
+		public IActionResult ForgotPassword()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ForgotPassword(string email)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(email))
+				{
+					ModelState.AddModelError("Email", "Email is required.");
+					return View();
+				}
+
+				var user = await _userRepository.GetUserByEmailAsync(email);
+				if (user != null)
+				{
+					var token = Guid.NewGuid().ToString();  //Tạo mã Token duy nhất
+					user.ResetPasswordToken = token;
+					user.ResetPasswordTokenExpiration = DateTime.UtcNow.AddHours(1);   // Mã token hơpj lệ trong 1 giờ
+					await _userRepository.UpdateUser(user);
+
+					var callbackUrl = Url.Action("ResetPassword", "Auth", new { token }, protocol: Request.Scheme);
+					await _emailService.SendMail(email, "Reset Password", $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>.");
+				}
+
+				TempData["SuccessMessage"] = "If an account with that email address exists, a reset password link has been sent.";
+				return RedirectToAction("Login");
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+			}
+			return View();
+		}
+
+		//Phương thức ResetPassword
+		public IActionResult ResetPassword(string token)
+		{
+            if (string.IsNullOrEmpty(token))
+            {
+				TempData["ErrorMessage"] = "Invalid password reset token.";
+				return RedirectToAction("Login");
+			}
+
+			var model = new ResetPasswordViewModel { Token = token };
+			return View(model);
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = await _userRepository.GetUserByResetPasswordTokenAsync(model.Token);
+				if (user == null || user.ResetPasswordTokenExpiration < DateTime.UtcNow)
+				{
+					TempData["ErrorMessage"] = "Invalid or expired password reset token.";
+					return RedirectToAction("Login");
+				}
+
+				user.Password = _passwordHasher.HashPassword(user, model.Password);
+				user.ResetPasswordToken = null;
+				user.ResetPasswordTokenExpiration = null;
+				user.IsNewUser = false;    //Điều kiện này cho phép user khi reset password không cần xác thực email
+				await _userRepository.UpdateUser(user);
+
+				TempData["SuccessMessage"] = "Password reset successfully. You can now log in.";
+				return RedirectToAction("Login");
+			}
+
+			return View(model);
+		}
+
+		//Phương thức delete
+		public async Task<IActionResult>Delete(string email)
+		{
+			try
+			{
+				var userExisting = await _userRepository.GetUserByEmailAsync(email);
+				if (userExisting == null)
+				{
+					return NotFound();
+				}
+				await _userRepository.DeleteUser(email);
+				return RedirectToAction("Index", "Auth");
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+			}
+			return View();
 		}
 	}
 }
