@@ -1,5 +1,7 @@
 ﻿
 
+using LModels.ExModel;
+
 namespace LModels
 {
 	public class Class
@@ -27,6 +29,8 @@ namespace LModels
 		public Teacher? Teacher { get; set; }
 		public ICollection<Schedule>? Schedules { get; set; }
 		public ICollection<ExamResult>? ExamResults { get; set; }
+
+		public virtual ICollection<ClassStudent>? ClassStudents { get; set; }
 
 	}
 }

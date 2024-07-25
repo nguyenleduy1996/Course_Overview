@@ -1,5 +1,6 @@
 ﻿
 
+using LModels.ExModel;
 using Microsoft.AspNetCore.Http;
 
 namespace LModels
@@ -52,5 +53,6 @@ namespace LModels
         public ICollection<ExamResult>? ExamResults { get; set; }
         public ICollection<SubjectScores>? SubjectScores { get; set; }
         public ICollection<FeedBack>? FeedBacks { get; set; }
-    }
+		public virtual ICollection<ClassStudent> ClassStudents { get; set; }
+	}
 }

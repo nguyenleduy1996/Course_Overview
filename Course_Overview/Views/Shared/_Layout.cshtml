@@ -70,7 +70,11 @@
 					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Education program</a>
 					@await Component.InvokeAsync("CourseCategory")
 				</div>
-				<a href="#" class="nav-item nav-link">Exams</a>
+				<!-- Vien fix  -->
+				@* <a href="#" class="nav-item nav-link">Exams</a> *@
+				<a asp-controller="Exams" asp-action="index" class="nav-item nav-link">Exams</a>
+				<!-- Vien fix  -->
+			
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
 					<div class="dropdown-menu fade-down m-0">
